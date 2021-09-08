@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: Profiles
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    locale: zh
+  devtools:
+    livereload:
+      port: 35781
+server:
+  port: 8084
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      #  select策略默认是空值也拼入SQL 修改为空值默认不校验 这个配置对mp的lambda貌似是不起作用
+      select-strategy: not_null
+  configuration:
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+#    cache-enabled: false
+
+---
+# prod
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.107.99.242:3306/pig?allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&useSSL=false
+    username: zyl
+    password: zyl
+
+---
+# dev
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.107.99.242:3306/pig?allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&useSSL=false
+    username: zyl
+    password: zyl
