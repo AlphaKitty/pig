@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyl.pig.service.mvc.mapper.CheckMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zyl.pig.service.mvc.pojo.Check">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="time" property="time" />
+        <result column="pay_type" property="payType" />
+        <result column="pay_day" property="payDay" />
+        <result column="pig_sum" property="pigSum" />
+        <result column="should_amount" property="shouldAmount" />
+        <result column="real_amount" property="realAmount" />
+    </resultMap>
+
+</mapper>

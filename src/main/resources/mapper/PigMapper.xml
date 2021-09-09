@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyl.pig.service.mvc.mapper.PigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zyl.pig.service.mvc.pojo.Pig">
+        <id column="id" property="id" />
+        <result column="identifier" property="identifier" />
+        <result column="weight" property="weight" />
+        <result column="in_price" property="inPrice" />
+        <result column="out_price" property="outPrice" />
+        <result column="in_time" property="inTime" />
+        <result column="out_time" property="outTime" />
+        <result column="in_check_id" property="inCheckId" />
+        <result column="out_check_id" property="outCheckId" />
+        <result column="is_sale" property="isSale" />
+        <result column="comment" property="comment" />
+    </resultMap>
+
+</mapper>

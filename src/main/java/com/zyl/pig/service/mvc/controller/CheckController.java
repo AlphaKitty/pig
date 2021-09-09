@@ -2,29 +2,29 @@ package com.zyl.pig.service.mvc.controller;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zyl.pig.common.base.ResponseUtil;
-import com.zyl.pig.service.mvc.pojo.Pig;
-import com.zyl.pig.service.mvc.service.IPigService;
+import com.zyl.pig.service.mvc.pojo.Check;
+import com.zyl.pig.service.mvc.service.ICheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 猪 前端控制器
+ * 账单 前端控制器
  *
  * @author 张代富
  * @since 2021-09-09
  */
 @RestController
-@RequestMapping("/pig")
-public class PigController {
+@RequestMapping("/check")
+public class CheckController {
 
 	@Autowired
-	private IPigService pigService;
+	private ICheckService userService;
 
 	@PostMapping
 	@ResponseBody
-	public Object addOne(@RequestBody Pig pig) {
+	public Object addOne(@RequestBody Check user) {
 		try {
-			pigService.save(pig);
+			userService.save(user);
 			return ResponseUtil.success("新增成功", null);
 		} catch (Exception e) {
 			return ResponseUtil.error("新增失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
@@ -35,7 +35,7 @@ public class PigController {
 	@ResponseBody
 	public Object deleteById(String id) {
 		try {
-			pigService.removeById(id);
+			userService.removeById(id);
 			return ResponseUtil.success("删除成功", null);
 		} catch (Exception e) {
 			return ResponseUtil.error("删除失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
@@ -44,9 +44,9 @@ public class PigController {
 
 	@PutMapping
 	@ResponseBody
-	public Object update(Pig pig) {
+	public Object update(Check user) {
 		try {
-			pigService.update(pig, new UpdateWrapper<>());
+			userService.update(user, new UpdateWrapper<>());
 			return ResponseUtil.success("修改成功", null);
 		} catch (Exception e) {
 			return ResponseUtil.error("修改失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
@@ -57,8 +57,8 @@ public class PigController {
 	@ResponseBody
 	public Object getById(String id) {
 		try {
-			Pig pig = pigService.getById(id);
-			return ResponseUtil.success("查询成功", pig);
+			Check user = userService.getById(id);
+			return ResponseUtil.success("查询成功", user);
 		} catch (Exception e) {
 			return ResponseUtil.error("查询失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
 		}
