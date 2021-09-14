@@ -3,7 +3,7 @@ package com.zyl.pig.service.mvc.pojo;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -49,12 +49,12 @@ public class Pig implements Serializable {
     /**
      * 入库时间
      */
-    private LocalDateTime inTime;
+    private Date inTime;
 
     /**
      * 出库时间
      */
-    private LocalDateTime outTime;
+    private Date outTime;
 
     /**
      * 入库账单编号

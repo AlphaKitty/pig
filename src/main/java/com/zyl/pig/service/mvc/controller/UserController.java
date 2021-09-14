@@ -1,11 +1,14 @@
 package com.zyl.pig.service.mvc.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zyl.pig.common.base.ResponseUtil;
 import com.zyl.pig.service.mvc.pojo.User;
 import com.zyl.pig.service.mvc.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 人 前端控制器
@@ -26,6 +29,19 @@ public class UserController {
 		try {
 			userService.save(user);
 			return ResponseUtil.success("新增成功", null);
+		} catch (Exception e) {
+			return ResponseUtil.error("新增失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
+		}
+	}
+
+	@PostMapping("search")
+	@ResponseBody
+	public Object search(@RequestBody User user) {
+		try {
+			QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+			queryWrapper.orderByAsc("CONVERT(name USING gbk)");
+			List<User> list = userService.list(queryWrapper);
+			return ResponseUtil.success("成功", list);
 		} catch (Exception e) {
 			return ResponseUtil.error("新增失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
 		}
