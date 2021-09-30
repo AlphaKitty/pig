@@ -1,11 +1,15 @@
 package com.zyl.pig.service.mvc.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.zyl.pig.common.base.ResponseUtil;
 import com.zyl.pig.service.mvc.pojo.Check;
 import com.zyl.pig.service.mvc.service.ICheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 账单 前端控制器
@@ -18,16 +22,30 @@ import org.springframework.web.bind.annotation.*;
 public class CheckController {
 
 	@Autowired
-	private ICheckService userService;
+	private ICheckService checkService;
 
 	@PostMapping
 	@ResponseBody
-	public Object addOne(@RequestBody Check user) {
+	public Object addOne(@RequestBody Check check) {
 		try {
-			userService.save(user);
+			check.setTime(new Date());
+			checkService.save(check);
 			return ResponseUtil.success("新增成功", null);
 		} catch (Exception e) {
 			return ResponseUtil.error("新增失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
+		}
+	}
+
+	@PostMapping("search")
+	@ResponseBody
+	public Object search(@RequestBody Check check) {
+		try {
+			QueryWrapper<Check> queryWrapper = new QueryWrapper<>();
+			queryWrapper.orderByAsc("CONVERT(name USING gbk)");
+			List<Check> list = checkService.list(queryWrapper);
+			return ResponseUtil.success("成功", list);
+		} catch (Exception e) {
+			return ResponseUtil.error("查询失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
 		}
 	}
 
@@ -35,7 +53,7 @@ public class CheckController {
 	@ResponseBody
 	public Object deleteById(String id) {
 		try {
-			userService.removeById(id);
+			checkService.removeById(id);
 			return ResponseUtil.success("删除成功", null);
 		} catch (Exception e) {
 			return ResponseUtil.error("删除失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
@@ -44,9 +62,9 @@ public class CheckController {
 
 	@PutMapping
 	@ResponseBody
-	public Object update(Check user) {
+	public Object update(Check check) {
 		try {
-			userService.update(user, new UpdateWrapper<>());
+			checkService.update(check, new UpdateWrapper<>());
 			return ResponseUtil.success("修改成功", null);
 		} catch (Exception e) {
 			return ResponseUtil.error("修改失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
@@ -57,8 +75,8 @@ public class CheckController {
 	@ResponseBody
 	public Object getById(String id) {
 		try {
-			Check user = userService.getById(id);
-			return ResponseUtil.success("查询成功", user);
+			Check check = checkService.getById(id);
+			return ResponseUtil.success("查询成功", check);
 		} catch (Exception e) {
 			return ResponseUtil.error("查询失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
 		}

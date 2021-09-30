@@ -43,7 +43,7 @@ public class UserController {
 			List<User> list = userService.list(queryWrapper);
 			return ResponseUtil.success("成功", list);
 		} catch (Exception e) {
-			return ResponseUtil.error("新增失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
+			return ResponseUtil.error("查询失败", (e.getCause() == null || e.getCause().getMessage() == null) ? e.toString() : e.getCause().getMessage());
 		}
 	}
 
